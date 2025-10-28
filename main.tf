@@ -70,9 +70,18 @@ resource "aws_security_group" "webSg" {
   }
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "snehal-terraform-bucket-4545"
+resource "random_id" "suffix" {
+  byte_length = 4
 }
+
+resource "aws_s3_bucket" "example" {
+  bucket = "snehal-devops-bucket-${random_id.suffix.hex}"
+
+  tags = {
+    Name = "Snehal-S3-Bucket"
+  }
+}
+
 
 
 resource "aws_instance" "webserver1" {
