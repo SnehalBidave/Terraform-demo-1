@@ -70,17 +70,17 @@ resource "aws_security_group" "webSg" {
   }
 }
 
-resource "random_id" "suffix" {
-  byte_length = 4
+resource "aws_s3_bucket" "example " {
+  bucket = "snehal-devops-bucket
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "snehal-devops-bucket-${random_id.suffix.hex}"
 
-  tags = {
-    Name = "Snehal-S3-Bucket"
-  }
-}
+
+
+
+
+
+
 
 
 
