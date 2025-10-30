@@ -70,19 +70,28 @@ resource "aws_security_group" "webSg" {
   }
 }
 
-resource "aws_s3_bucket" "example " {
-  bucket = "snehal-devops-bucket
+resource "aws_s3_bucket" "example" {
+  bucket = "Snehal-demo-bucket"
 }
 
+resource "aws_s3_bucket_public_access_block" "example" {
+  bucket = aws_s3_bucket.example.id
 
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
 
+resource "aws_s3_bucket_acl" "example" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.example,
+    aws_s3_bucket_public_access_block.example,
+  ]
 
-
-
-
-
-
-
+  bucket = aws_s3_bucket.example.id
+  acl    = "public-read"
+}
 
 resource "aws_instance" "webserver1" {
   ami                    = "ami-0261755bbcb8c4a84"
