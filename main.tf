@@ -50,6 +50,7 @@ resource "aws_security_group" "webSg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   ingress {
     description = "SSH"
     from_port   = 22
@@ -71,9 +72,8 @@ resource "aws_security_group" "webSg" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "Snehalterraform20project"
+  bucket = "snehalterraform20project"
 }
-
 
 resource "aws_instance" "webserver1" {
   ami                    = "ami-0261755bbcb8c4a84"
@@ -96,9 +96,8 @@ resource "aws_lb" "myalb" {
   name               = "myalb"
   internal           = false
   load_balancer_type = "application"
-
-  security_groups = [aws_security_group.webSg.id]
-  subnets         = [aws_subnet.sub1.id, aws_subnet.sub2.id]
+  security_groups    = [aws_security_group.webSg.id]
+  subnets            = [aws_subnet.sub1.id, aws_subnet.sub2.id]
 
   tags = {
     Name = "web"
