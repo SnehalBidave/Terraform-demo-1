@@ -70,9 +70,18 @@ resource "aws_security_group" "webSg" {
   }
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "Snehal-demo-bucket"
+resource "random_id" "suffix" {
+  byte_length = 4
 }
+
+resource "aws_s3_bucket" "example" {
+  bucket = "snehal-demo-bucket-${random_id.suffix.hex}"
+
+  tags = {
+    Name = "snehal-demo-bucket"
+  }
+}
+
 
 resource "aws_instance" "webserver1" {
   ami                    = "ami-0261755bbcb8c4a84"
