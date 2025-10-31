@@ -70,17 +70,20 @@ resource "aws_security_group" "webSg" {
   }
 }
 
+# ✅ Random suffix for unique, valid bucket name
 resource "random_id" "suffix" {
   byte_length = 4
 }
 
+# ✅ Correct S3 bucket resource block
 resource "aws_s3_bucket" "example" {
-  bucket = "snehal-demo-bucket-${random_id.suffix.hex}"
+  bucket = "snehal-demo-bucket-${lower(random_id.suffix.hex)}"
 
   tags = {
     Name = "snehal-demo-bucket"
   }
 }
+
 
 
 resource "aws_instance" "webserver1" {
